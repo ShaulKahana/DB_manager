@@ -26,16 +26,7 @@ async function get_user_data(userLineId){
     const file = await open("./db.txt");
 
     let curent_line_number = 1;
-    let me = {
-        encoding: null,
-        autoClose: true,
-        emitClose: true,
-        start: 1,
-        end : Infinity,
-        highWaterMark: 64 * 1024
-    }
-
-
+    
     for await (const line of file.readLines()) {
         
         if (curent_line_number == userLineId) { 
