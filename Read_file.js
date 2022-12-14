@@ -39,12 +39,9 @@ async function get_user_data(user_bayts,user_length){
         highWaterMark: 64 * 1024
     }
 
-    let curent_line_number = 1;
-    
     for await (const line of file.readLines(me)) {
             let ruturnd_enser = check_the_input(line);
             console.log(ruturnd_enser);
-            break;
     }
 
     await file.close(file);
