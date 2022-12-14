@@ -17,7 +17,12 @@ const rl = readline.createInterface({ input, output });
 let answer = 1;
 
 while (answer!="0"){
-  answer = await rl.question('Hello, if you want to add a user to the date base press 1\nif you want to get information about an existing user press 2\nto exit press 0\n');
+  
+  setTimeout((function printName()
+  {
+    console.log('Hello, if you want to add a user to the date base press 1\nif you want to get information about an existing user press 2\nto exit press 0\n')
+  }),500)
+  answer = await rl.question("");
 
   switch (answer) {
       case '1':
