@@ -11,8 +11,8 @@ async function write_to_file(user){
     })
 }
 
-async function write_id_to_file(id){
-    appendFile("./id.txt",id + "\n", function (err) {
+async function write_id_to_file(id,user_length){
+    appendFile("./id.txt",id + " "+ user_length + "\n", function (err) {
         if (err) {
             console.error(err);
         } 

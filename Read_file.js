@@ -7,35 +7,44 @@ async function find_user_line(id,next)
 {
     const file =  await open("./id.txt");
 
-    let curent_line_number = 1;
+    let user_bayts= 0;
 
-    let result = -1;
+    let user_length = -1;
+
     for await (const line of file.readLines()) {
-        if (line == id) { 
-            result = curent_line_number ;
-           
+        let line_split = line.split(" ");
+
+        if (line_split[0] == id) { 
+            user_length = parseInt(line_split[1])+user_bayts;
             break;
         }
-        curent_line_number ++;
+        user_bayts += parseInt(line_split[1])+1;
     }
-    await file.close(file)   
-     next(result);
+
+    await file.close(file);
+       
+    next(user_bayts,user_length);
 }
 
-async function get_user_data(userLineId){
+async function get_user_data(user_bayts,user_length){
 
     const file = await open("./db.txt");
 
+    let me = {
+        encoding: null,
+        autoClose: true,
+        emitClose: true,
+        start: user_bayts,
+        end : user_length,
+        highWaterMark: 64 * 1024
+    }
+
     let curent_line_number = 1;
     
-    for await (const line of file.readLines()) {
-        
-        if (curent_line_number == userLineId) { 
+    for await (const line of file.readLines(me)) {
             let ruturnd_enser = check_the_input(line);
             console.log(ruturnd_enser);
             break;
-        }
-        curent_line_number ++;
     }
 
     await file.close(file);
@@ -47,5 +56,4 @@ export {
   };
 
 
- 
  

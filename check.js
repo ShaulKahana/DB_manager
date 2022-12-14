@@ -23,8 +23,15 @@ function check_the_input(answer){
 
     let answer_split = answer.split(", ");
 
-    if(answer_split.length>10)
+    if(answer_split.length>10){
         console.log("the mach information");
+        return return_answer;
+    }
+
+    if(answer_split.length<10){
+        console.log("Insufficient information");
+        return return_answer;
+    }
 
     if (check_if_its_a_number(answer_split[0])&& answer_split[0].length == 9) {
         return_answer += "ID: " + answer_split[0] + '\n';

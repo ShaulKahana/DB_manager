@@ -32,19 +32,21 @@ while (answer!="0"){
           while (answer!="1"){
               let ruturnd_enser = check_the_input(answer);
               if (ruturnd_enser) {
-                  console.log(ruturnd_enser);
+                  
                   let answer_split = answer.split(", ");
 
-                  find_user_line(answer_split[0], async function next(result) {
-                    if (result==-1) {
-                      write_id_to_file(answer_split[0])
+                  find_user_line(answer_split[0], async function next(user_bayts,user_length) {
+                    if (user_length==-1) {
+                      write_id_to_file(answer_split[0],answer.length)
                       //users_araay.push(answer_split[0]);
                       write_to_file(answer);
+                      console.log("Below is the information we keep\n" + ruturnd_enser);
                     }
                     else{
                       console.log("The user already exist in the DB");
                     }   
                   })
+
               }
               answer = await rl.question('');
           }
@@ -53,12 +55,12 @@ while (answer!="0"){
         answer = await rl.question('What is the Id number? ');
         if (answer.match(/([^0-9])/g) == null && answer.length == 9) {
 
-          find_user_line(answer, async function next(result) {
-              if (result==-1) {
+          find_user_line(answer, async function next(user_bayts,user_length) {
+              if (user_length==-1) {
                   console.log("The user is not in the DB")
               }
               else{
-                  await get_user_data(result);
+                await get_user_data(user_bayts,user_length);
               }
           })   
          
