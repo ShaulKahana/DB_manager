@@ -1,6 +1,7 @@
 import { log } from 'node:console';
 import { stat } from 'node:fs';
 import {open,appendFile} from 'node:fs/promises';
+import {check_the_input} from './check.js';
 
 async function find_user_line(id,next)
 {
@@ -30,7 +31,8 @@ async function get_user_data(userLineId){
     for await (const line of file.readLines()) {
         
         if (curent_line_number == userLineId) { 
-            console.log(line);
+            let ruturnd_enser = check_the_input(line);
+            console.log(ruturnd_enser);
             break;
         }
         curent_line_number ++;
