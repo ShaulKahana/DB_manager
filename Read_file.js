@@ -1,5 +1,5 @@
 import { log } from 'node:console';
-import { stat } from 'node:fs';
+import { stat, createReadStream } from 'node:fs';
 import {open,appendFile} from 'node:fs/promises';
 import {check_the_input} from './check.js';
 
@@ -28,23 +28,14 @@ async function find_user_line(id,next)
 
 async function get_user_data(user_bayts,user_length){
 
-    const file = await open("./db.txt");
-
-    let me = {
-        encoding: null,
-        autoClose: true,
-        emitClose: true,
-        start: user_bayts,
-        end : user_length,
-        highWaterMark: 64 * 1024
-    }
-
-    for await (const line of file.readLines(me)) {
-            let ruturnd_enser = check_the_input(line);
-            console.log(ruturnd_enser);
-    }
-
-    await file.close(file);
+    const createReader = createReadStream("./db.txt",{ start: user_bayts, end: user_length });
+  
+    createReader.on("data", (data) => {
+        let dataStr =  data.toString().split('\n').join("");
+        let ruturnd_enser = check_the_input(dataStr);
+        console.log(ruturnd_enser);
+    
+    });
 }
 
 
@@ -53,4 +44,4 @@ export {
   };
 
 
- 
+
