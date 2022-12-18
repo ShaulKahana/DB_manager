@@ -7,10 +7,6 @@ import {write_to_file, write_id_to_file} from './Write_file.js';
 import {get_user_data,find_user_line} from './Read_file.js';
 
 
-
-//let users_araay = [];
-
-
 console.log("\x1b[31m" );
 const rl = readline.createInterface({ input, output });
 
