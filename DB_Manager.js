@@ -29,28 +29,51 @@ async function db_maneger (){
 
     switch (answer) {
         case '1':
-            console.log("you can add hew match new users you want every user in a new line, to finish adding users press 1")        
-            console.log("Write the details of the new user on this forum\nID(9 digits), Name, family name, Age, Country name, city name, street name, House number, Gender(Male/Female), number of kids\nWith a ',' and a space after each data");
-            answer = await rl.question('');
-            while (answer!="1"){
-                let ruturnd_enser = check_the_input(answer);
+            let user_data = "";
+            console.log("you can add how many new users you want")        
+            console.log("To add a second user press `Enter` after you see the date from the previous user")        
+            console.log("To finish adding users press 1\n\n")        
+
+            while ( user_data!="1"){
+                answer = await rl.question('Enter your ID: ');
+                user_data += answer+", "
+                answer = await rl.question('Enter your Name: ');
+                user_data += answer+", "
+                answer = await rl.question('Enter your Family name: ');
+                user_data += answer+", "
+                answer = await rl.question('Enter your Age: ');
+                user_data += answer+", "
+                answer = await rl.question('Enter your Country name: ');
+                user_data += answer+", "
+                answer = await rl.question('Enter your city name: ');
+                user_data += answer+", "
+                answer = await rl.question('Enter your street name: ');
+                user_data += answer+", "
+                answer = await rl.question('Enter your House number: ');
+                user_data += answer+", "
+                answer = await rl.question('Enter your Gender(Male/Female): ');
+                user_data += answer+", "
+                answer = await rl.question('Enter your number of kids: ');
+                user_data += answer
+
+                let ruturnd_enser = check_the_input(user_data);
 
                 if (ruturnd_enser) {
                     
-                    let answer_split = answer.split(", ");
+                    let answer_split =  user_data.split(", ");
 
                     if (map1.get(answer_split[0])) {
                       console.log("The user already exist in the DB");
                     }
                     else{
-                      write_id_to_file(answer_split[0],answer.length)
-                      write_to_file(answer);
-                      map1.set(answer_split[0],{user_length: answer.length ,count_bayt: count_bayt});
-                      count_bayt += answer.length + 1
+                      write_id_to_file(answer_split[0], user_data.length)
+                      write_to_file( user_data);
+                      map1.set(answer_split[0],{user_length:  user_data.length ,count_bayt: count_bayt});
+                      count_bayt +=  user_data.length + 1
                       console.log("Below is the information we keep\n" + ruturnd_enser);
                     }
                 }
-                answer = await rl.question('');
+                user_data = await rl.question('');
             }
           break;
         case '2':
