@@ -1,63 +1,41 @@
-import { createWriteStream,createReadStream, stat } from 'node:fs';
+import { log } from 'node:console';
+import { stat, createReadStream } from 'node:fs';
 import {open,appendFile} from 'node:fs/promises';
-import { resolve } from 'node:path';
-import { stdout } from 'node:process';
-import {get_user_data} from './Read_file.js';
-
-// const writstrim = createWriteStream('l2.txt');
-
-// function writdate(date){
-//     writstrim.write(JSON.stringify(date )+"\n");
-// }
-
-// const sleep = (t)=> new Promise((resolve)=>setTimeout(resolve,t))
-
-// async function run (){
-//     for (let index = 0; index < 100; index++) {
-//         const user = {
-//             name: "shaul",
-//             id: index++
-//         }
-//        stdout.write(JSON.stringify(user )+"\n")
-//         //writdate(user)
-//         await sleep(1000);
-//     }
-    
-// }
-
-// run ()
 
 
 
+let count_bayt = 0;
 
-async function find_user_line(id,next)
+async function read_the_id_file(next)
 {
     const file =  await open("./id.txt");
+    const map1 = new Map();
 
-    let user_bayts= 0;
-
-    let user_length = -1;
 
     for await (const line of file.readLines()) {
-        let line_split = line.split(" ");
-
-        if (line_split[0] == id) { 
-            user_length = parseInt(line_split[1])+user_bayts;
-            break;
-        }
-        user_bayts += parseInt(line_split[1])+1;
+        map1.set(line.split(" ")[0],{user_length: line.split(" ")[1] ,count_bayt: count_bayt});
+        count_bayt += parseInt(line.split(" ")[1])+1
     }
 
     await file.close(file);
        
-    next(user_bayts,user_length);
+    next(map1);
 }
 
-find_user_line("021956588", async function next(user_bayts,user_length) {
-    if (user_length==-1) {
-        console.log("The user is not in the DB")
+
+
+read_the_id_file(async function next(map1) {
+    if (map1 == undefined) {
+      console.log("The DB is ampty\n");
     }
     else{
-        await get_user_data(user_bayts,user_length);
-    }
-})   
+        console.log(map1.get("021966511").user_length);
+    }   
+  })
+
+
+
+
+read_the_id_file()   
+
+console.log("ppppp");

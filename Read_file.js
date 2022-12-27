@@ -3,27 +3,18 @@ import { stat, createReadStream } from 'node:fs';
 import {open,appendFile} from 'node:fs/promises';
 import {check_the_input} from './check.js';
 
-async function find_user_line(id,next)
+async function read_the_id_file(count_bayt,map1,next)
 {
     const file =  await open("./id.txt");
 
-    let user_bayts= 0;
-
-    let user_length = -1;
-
     for await (const line of file.readLines()) {
-        let line_split = line.split(" ");
-
-        if (line_split[0] == id) { 
-            user_length = parseInt(line_split[1])+user_bayts;
-            break;
-        }
-        user_bayts += parseInt(line_split[1])+1;
+      map1.set(line.split(" ")[0],{user_length: line.split(" ")[1] ,count_bayt: count_bayt});
+      count_bayt += parseInt(line.split(" ")[1])+1
     }
 
     await file.close(file);
        
-    next(user_bayts,user_length);
+    next(count_bayt,map1);
 }
 
 async function get_user_data(user_bayts,user_length){
@@ -40,7 +31,7 @@ async function get_user_data(user_bayts,user_length){
 
 
 export {
-    get_user_data,find_user_line
+    get_user_data,read_the_id_file
   };
 
 
