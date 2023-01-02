@@ -1,7 +1,3 @@
-import {writeFile, readFile } from 'node:fs';
-import {open,appendFile} from 'node:fs/promises';
-import { exit } from 'node:process';
-import * as readline from 'node:readline/promises';
 import { stdin as input, stdout as output } from 'node:process';
 import {check_the_input} from './check.js';
 import {write_to_file, write_id_to_file} from './Write_file.js';
@@ -12,7 +8,7 @@ const map1 = new Map();
 
 let count_bayt = 0;
 
-async function db_maneger (){
+async function db_maneger (count_bayt){
 
   console.log("\x1b[31m" );
   const rl = readline.createInterface({ input, output });
@@ -68,7 +64,7 @@ async function db_maneger (){
                     else{
                       write_id_to_file(answer_split[0], user_data.length)
                       write_to_file( user_data);
-                      map1.set(answer_split[0],{user_length:  user_data.length ,count_bayt: count_bayt});
+                      map1.set(answer_split[0],{user_length:user_data.length ,count_bayt: count_bayt});
                       count_bayt +=  user_data.length + 1
                       console.log("Below is the information we keep\n" + ruturnd_enser);
                     }
@@ -114,6 +110,6 @@ read_the_id_file(count_bayt, map1,async function next(count_bayt,map1) {
       console.log("The DB is ampty\n");
     }
     else{
-      db_maneger ();
+      db_maneger (count_bayt);
     }   
 })
