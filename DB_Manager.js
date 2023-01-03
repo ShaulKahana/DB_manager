@@ -1,3 +1,4 @@
+import * as readline from 'node:readline/promises';
 import { stdin as input, stdout as output } from 'node:process';
 import {check_the_input} from './check.js';
 import {write_to_file, write_id_to_file} from './Write_file.js';

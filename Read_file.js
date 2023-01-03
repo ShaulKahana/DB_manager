@@ -6,7 +6,6 @@ async function read_the_id_file(count_bayt,map1,next)
 {
     const file =  await open("./id.txt");
 
-
     for await (const line of file.readLines()) {
       map1.set(line.split(" ")[0],{user_length: line.split(" ")[1] ,count_bayt: count_bayt});
       count_bayt += parseInt(line.split(" ")[1])+1
