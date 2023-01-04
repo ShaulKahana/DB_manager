@@ -9,7 +9,7 @@ async function delete_user_data(id){
     createReader.on("data", (data) => {
 
         let dataStr =  data.toString();
-        dataStr = dataStr.replace(id,"ppppppppp")
+        dataStr = dataStr.replace(id,"         ")
 
         const createWriter = createWriteStream("./id.txt",{ start: 0 });
   
