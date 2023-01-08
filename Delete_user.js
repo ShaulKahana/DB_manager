@@ -1,6 +1,4 @@
-import { createWriteStream,createReadStream,appendFile } from 'node:fs';
-
-
+import { createWriteStream ,createReadStream ,appendFile } from 'node:fs';
 
 async function delete_user_data(id){
 

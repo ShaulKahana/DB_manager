@@ -1,6 +1,4 @@
-import { stat } from 'node:fs';
 import {open,appendFile} from 'node:fs/promises';
-
 
 
 async function write_to_file(user){
@@ -18,7 +16,6 @@ async function write_id_to_file(id,user_length){
         } 
     })
 }
-
 
 
 export {

@@ -6,11 +6,9 @@ import {write_to_file, write_id_to_file} from './Write_file.js';
 import {get_user_data,read_the_id_file} from './Read_file.js';
 import {delete_user_data} from './Delete_user.js';
 
-
 const map1 = new Map();
 
 let count_bayt = 0;
-
 
 async function addUser(count_bayt){
     try {
@@ -19,8 +17,7 @@ async function addUser(count_bayt){
         let id;
         
         for (const query of questions) {
-            let answer = await rl
-                .question(`${query.question}`)
+            let answer = await rl.question(`${query.question}`)
                 .then((data) => check(query.type, data, query.length));
             while (!answer) {
                 answer = await rl
@@ -47,7 +44,6 @@ async function addUser(count_bayt){
         rl.close();
         db_maneger(count_bayt)
     }
-
     catch (err) {
         console.error(err);
     }
@@ -72,7 +68,6 @@ async function searchUser (count_bayt){
               console.log("The user is not in the DB")
             }
         }
-        console.log(`User with id: ${id} was deleted successfully!!!`);
         rl.close();
         db_maneger(count_bayt)
     }
@@ -84,6 +79,7 @@ async function searchUser (count_bayt){
 
 async function deleteUser (count_bayt){
     try {
+
         const rl = readline.createInterface({ input, output, terminal: false });
         const answer = await rl.question("What's the id of the user you want to delete? ");
 
@@ -93,6 +89,7 @@ async function deleteUser (count_bayt){
 
                 await delete_user_data(answer);
                 map1.delete(answer);
+                console.log(`User with id: ${answer} was deleted successfully!!!`);
             }
             else{
               console.log("The user is not in the DB")
@@ -108,16 +105,14 @@ async function deleteUser (count_bayt){
 
 
 
-
 async function db_maneger(count_bayt) {
     const rl = readline.createInterface({ input, output, terminal: false });
     let action ;
 
+    setTimeout((function printName()
+    {console.log("Hello and welcome, what would you like to do (add || search || exit || delete)? ")}),500)
 
-        setTimeout((function printName()
-        {console.log("Hello and welcome, what would you like to do (add || search || exit || delete)? ")}),500)
-
-        action = await rl.question("");
+    action = await rl.question("");
 
     switch (action) {
         case "add":
@@ -141,7 +136,6 @@ async function db_maneger(count_bayt) {
             console.error("Must choose or 'add' or 'search' or 'exit'!\n");
             db_maneger(count_bayt)
             break;
-        
     }
     
 }
