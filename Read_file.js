@@ -1,6 +1,5 @@
 import {createReadStream } from 'node:fs';
 import {open} from 'node:fs/promises';
-import {check_the_input} from './check.js';
 
 async function read_the_id_file(count_bayt,map1,next)
 {
@@ -22,9 +21,10 @@ async function get_user_data(user_bayts,user_length){
   
     createReader.on("data", (data) => {
         let dataStr =  data.toString().split('\n').join("");
-        let ruturnd_enser = check_the_input(dataStr);
-        console.log(ruturnd_enser);
-    
+        let answer_split =  dataStr.split("  ,");
+        answer_split.forEach(element => {
+            console.log(element);
+        });
     });
 }
 
